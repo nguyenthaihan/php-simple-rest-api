@@ -1,0 +1,95 @@
+<html>
+	<head>
+		<title>Submit Form API</title>
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				function setDomain(savedDomain)
+				{
+					$('#apiForm form').each(function() {
+						var action = $(this).attr('action');
+
+						if (action.indexOf('__DOMAIN__') != -1) {
+							action = action.replace('__DOMAIN__', savedDomain);
+						};
+
+						$(this).attr( 'action', action );
+					});
+				}
+
+				function resetDomainToDefault()
+				{
+					$('#apiForm form').each(function() {
+						var sampleDomain = $(this).find('.sampleDomain').val();
+						$(this).attr( 'action', sampleDomain );
+					});
+				}
+				
+				var savedDomain = localStorage.getItem('savedDomain');
+
+				if (savedDomain != null) {
+					setDomain(savedDomain);
+
+					$('#configDomain').val(savedDomain);
+					alert('domain has been auto updated to "'+savedDomain+'" from history');
+				}
+
+				$( '#changeDomain' ).click(function() {
+					// reset to default
+					resetDomainToDefault();
+
+					var savedDomain = $('#domain').val();
+					localStorage.setItem('savedDomain', savedDomain);
+
+					setDomain(savedDomain);
+
+					$( '#configDomain' ).val( savedDomain );
+					alert('domain has been updated to '+savedDomain);
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div style="width: 960px; margin: auto;">
+			<h1>Compatibility with HTML5 browser</h1>
+			<div style="float: left; margin-right: 10px; padding: 10px; border: 1px solid #ccc">
+				<h3>input your domain</h3>
+				<form action="#" method="post" id="configDomain" onsubmit="return false;">
+					site domain: <input type="text" name="domain" value="localhost/sample" id="domain" />
+					<button type="button" id="changeDomain">save</button>
+				</form>
+			</div>
+			<div style="float: left; border: 1px solid #ccc; padding: 10px;" id="apiForm">
+				
+                <p>To test the function of this simple rest implement:</p>
+                <p>1. Run the login API with the username/pass: demo/demo. Then get the token string.</p>
+                <p>2. Enter the token string to the token variable inside the apicontroller.php. It's something like this.</p>
+
+                <p>$token = 'zGQLSaNv4EIU+LqBYrxBtg';</p>
+                <p>$api = new API;</p>
+                <p>$api->processApi($token);</p>
+                <p>3. Run the domain checker api to test with simple authenticated and check the domain if it's available or not</p>
+                <br></br>
+				<h3>Test login</h3>
+				<form action="http://__DOMAIN__/login" method="post">
+					<input type="text" name="username" value="demo" />
+					<input type="text" name="password" value="demo" />
+                    
+					<button>submit</button>
+
+					<!-- ******** start dont remove ******** -->
+					<input type="hidden" class="sampleDomain" value="http://__DOMAIN__/login" />
+					<!-- ******** end dont remove ******** -->
+				</form>
+                <br></br>
+                <p>Test auth by running function domainChecker to get information of a domain: </p>
+                <p><b>Notice: This funtion only work with the domain in .COM, .NET, .EDU </b></p>
+                 <br></br>
+                <form method="POST" action="http://__DOMAIN__/domainChecker">
+                    <input type="text" name="domainName" value="iris-entertaiment.com" />
+                    <input type="submit" value="Submit">
+                </form>
+			</div>
+		</div>
+	</body>
+</html>
