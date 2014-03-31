@@ -12,7 +12,7 @@ This is the simple rest api implement
     + message.php : get the message from message code.
     + rest.php: manage basic functions for rest calling
     + validateparam.php : handle the validation of inputs.
-- Cnnfig
+- Config
     + message
         . common.php : define the message code and message
         
@@ -20,4 +20,4 @@ This is the simple rest api implement
 - extends the class ValidateParam with class Exceptions. Then we can try catch inside functions
 - Remove all variable such as $demoUsername, $demoPassword to configuration files.
 - Remove using session to store authenticated to make this api work properly with the multi server. ( on multi server, we will have problem with session)
-- Restructure the files,class to make the code more clearly. Such as addding the class input,output to seperating those actions.  
+- Restructure the files,class to make the code more clearly, such as seperate input,output class 
