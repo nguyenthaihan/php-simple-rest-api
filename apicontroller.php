@@ -69,7 +69,6 @@ class API extends REST {
         } else {
             $this->response($this->res,102);
             $this->json();
-            exit;
         }
     }
 
