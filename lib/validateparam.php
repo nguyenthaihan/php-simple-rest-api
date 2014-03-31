@@ -10,8 +10,7 @@
  * @author: Thang Nguyen
  */
 
-class ValidateParam
-{
+class ValidateParam {
     private $variables;
     public function __construct($variables)
     {

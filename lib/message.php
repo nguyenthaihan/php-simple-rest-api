@@ -11,8 +11,7 @@ require_once("config/message/common.php");
  * @author: Thang Nguyen
  */
 
-class Message 
-{
+class Message {
     private $message;
     private $returnMessage;
 

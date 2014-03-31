@@ -7,5 +7,6 @@ DEFINE (103,'Missing param');
 DEFINE (104,'Authenticated success');
 DEFINE (105,'Success');
 DEFINE (106,'The domain %s is not available');
+DEFINE (107,'Not Acceptable');
 
 ?>

@@ -14,7 +14,7 @@ require_once("lib/validateparam.php");
  */
 
 class API extends REST {
-    private $res;
+    public $res;
     private $variables;
     private $demoUser = 'demo';
     private $demoPassword = 'demo';
@@ -163,6 +163,7 @@ class API extends REST {
         $validateParam = new ValidateParam($this->variables);
         $userName = $validateParam->checkUserName();
         $password = $validateParam->checkPassword();
+        
         if ($userName !== false && $password !== false) {
             // Implement simple check authenticated with demo account. And then, generate a token for the next request.
             if ($userName == $this->demoUser && $password == $this->demoPassword) {
@@ -284,7 +285,8 @@ class API extends REST {
 
 // Initiate implement the usage of api class
 // $token : it's the random token of login api. The token will be expired within 10 minutes
-$token = '7wlbpaAwY2MZ6LzPTLkgLA';
+//$token = '2JFKGTywc29R6fBOWNPzyA';
+$token = null;
 $api = new API;
 $api->processApi($token);
 ?>

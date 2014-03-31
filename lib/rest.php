@@ -53,21 +53,27 @@ class REST {
     }
     
     /**
-     * Set the request variable
+     * Set the request variable. This only support for post/get method and both post and get method at the same time
      */
     private function inputs()
     {
-            switch($this->get_request_method()){
-                    case "POST":
-                            $this->_request = $this->cleanInputs($_POST);
-                            break;
-                    case "GET":
-                            $this->_request = $this->cleanInputs($_GET);
-                            break;
-                    default:
-                            $this->response('',406);
-                            break;
-            }
+        switch($this->get_request_method()){
+            case "POST":
+                if (count($this->_request) > 0) {
+                    $this->_request = array_merge($this->_request, $this->cleanInputs($_POST));
+                } else {
+                    $this->_request = $this->cleanInputs($_POST);
+                }
+            case "GET":
+                if (count($this->_request) > 0) {
+                    $this->_request = array_merge($this->_request, $this->cleanInputs($_GET));
+                } else {
+                    $this->_request = $this->cleanInputs($_GET);
+                }
+            default:
+                $this->response($this->res,107);
+                break;
+        }
     }		
 
     /**
